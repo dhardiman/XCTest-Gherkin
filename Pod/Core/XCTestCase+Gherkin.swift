@@ -18,7 +18,13 @@ It's nicer code IMHO to have the state as a single associated property beacuse o
 This means that anytime I want to access my extra properties I just do `state.{propertyName}`
 */
 class GherkinState: NSObject, XCTestObservation {
-    var test: XCTestCase?
+    var test: XCTestCase? {
+        didSet {
+            if test != oldValue {
+                self.steps =  Set<Step>()
+            }
+        }
+    }
     
     // The list of all steps the system knows about
     var steps = Set<Step>()
@@ -68,7 +74,6 @@ class GherkinState: NSObject, XCTestObservation {
     }
 
     func testCaseDidFinish(_ testCase: XCTestCase) {
-        self.steps =  Set<Step>()
         XCTestObservationCenter.shared.removeTestObserver(self)
     }
 
