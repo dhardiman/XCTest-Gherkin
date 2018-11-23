@@ -68,6 +68,7 @@ class GherkinState: NSObject, XCTestObservation {
     }
 
     func testCaseDidFinish(_ testCase: XCTestCase) {
+        self.steps =  Set<Step>()
         XCTestObservationCenter.shared.removeTestObserver(self)
     }
 
