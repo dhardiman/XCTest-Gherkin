@@ -100,6 +100,10 @@ class Step: Hashable, Equatable, CustomDebugStringConvertible {
     var hashValue: Int {
         return expression.hashValue
     }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(expression)
+    }
     
     var debugDescription: String {
         return "/\(expression)/  \(shortLocationDescription)"
